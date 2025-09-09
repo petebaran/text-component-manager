@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      font-size: 12px; 
+      padding: 16px; 
+      background: #f8f9fa;
+    }
+    
+    .section { 
+      background: white; 
+      border-radius: 8px; 
+      padding: 16px; 
+      margin-bottom: 16px; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .section-title { 
+      font-weight: 600; 
+      margin-bottom: 12px; 
+      color: #1a1a1a;
+    }
+    
+    .text-type-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .text-type-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #e1e5e9;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    
+    .text-type-btn:hover { background: #f8f9fa; }
+    .text-type-btn.active { background: #1976d2; color: white; border-color: #1976d2; }
+    
+    .form-group { margin-bottom: 16px; }
+    .label { 
+      display: block; 
+      margin-bottom: 6px; 
+      font-weight: 500; 
+      color: #5f6368; 
+      font-size: 11px; 
+    }
+    
+    .textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 12px;
+      border: 1px solid #e1e5e9;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: inherit;
+      resize: vertical;
+    }
+    
+    .textarea:focus {
+      outline: none;
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+    }
+    
+    .language-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    
+    .language-tab {
+      padding: 6px 12px;
+      border: 1px solid #e1e5e9;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 500;
+    }
+    
+    .language-tab:hover { background: #f8f9fa; }
+    .language-tab.active { background: #1976d2; color: white; border-color: #1976d2; }
+    
+    .add-language {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    
+    .select, .input {
+      padding: 8px;
+      border: 1px solid #e1e5e9;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+    
+    .select { flex: 1; }
+    
+    .font-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .font-size-input {
+      width: 60px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid #e1e5e9;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+    
+    .preset-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    
+    .preset-btn {
+      padding: 4px 8px;
+      border: 1px solid #e1e5e9;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+    
+    .preset-btn:hover { background: #f8f9fa; }
+    .preset-btn.active { background: #1976d2; color: white; border-color: #1976d2; }
+    
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .btn-primary {
+      background: #1976d2;
+      color: white;
+    }
+    
+    .btn-primary:hover { background: #1565c0; }
+    
+    .btn-secondary {
+      background: white;
+      color: #1976d2;
+      border: 1px solid #1976d2;
+    }
+    
+    .btn-secondary:hover { background: #f8f9fa; }
+    
+    .status {
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    
+    .status.success {
+      background: #e8f5e8;
+      color: #2e7d32;
+      border: 1px solid #c8e6c9;
+    }
+    
+    .status.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ffcdd2;
+    }
+  </style>
+</head>
+<body>
+  <div id="status" class="status"></div>
+
+  <div class="section">
+    <div class="section-title">Text Type</div>
+    <div class="text-type-buttons">
+      <button class="text-type-btn active" data-type="headline">Headline</button>
+      <button class="text-type-btn" data-type="subheadline">Subheadline</button>
+      <button class="text-type-btn" data-type="disclaimer">Disclaimer</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Languages & Content</div>
+    <div class="language-tabs">
+      <div class="language-tab active" data-lang="EN">EN</div>
+    </div>
+    <div class="form-group">
+      <textarea class="textarea" id="content-input" placeholder="Enter your text content..."></textarea>
+    </div>
+    <div class="add-language">
+      <select class="select" id="language-select">
+        <option value="">Add language...</option>
+        <option value="DE">German (DE)</option>
+        <option value="ES">Spanish (ES)</option>
+        <option value="ES-LATAM">Spanish LATAM</option>
+        <option value="FR">French (FR)</option>
+        <option value="IT">Italian (IT)</option>
+        <option value="PL">Polish (PL)</option>
+        <option value="JPY">Japanese (JPY)</option>
+        <option value="PT">Portuguese (PT)</option>
+        <option value="NL">Dutch (NL)</option>
+        <option value="RU">Russian (RU)</option>
+      </select>
+      <button class="btn btn-secondary" id="add-language-btn">Add</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Font Sizes</div>
+    <div class="form-group">
+      <div class="label">Banner Size Presets</div>
+      <div class="preset-buttons">
+        <button class="preset-btn" data-sizes="128,96,72">Large Banners</button>
+        <button class="preset-btn" data-sizes="48,36,24">Medium Banners</button>
+        <button class="preset-btn" data-sizes="20,16,14">Small Banners</button>
+        <button class="preset-btn" data-sizes="128,96,72,48,36,24,20,16">All Sizes</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="label">Custom Sizes (px)</div>
+      <div class="font-sizes" id="font-sizes-container">
+        <input type="number" class="font-size-input" value="48" min="8" max="200">
+      </div>
+      <button class="btn btn-secondary" id="add-font-size">+ Add Size</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <button class="btn btn-primary" id="create-variants">Create as Variants</button>
+    <button class="btn btn-secondary" id="create-components">Create Individual Components</button>
+    <button class="btn btn-secondary" id="update-existing">Update Existing Components</button>
+  </div>
+
+  <script>
+    let currentTextType = 'headline';
+    let currentLanguage = 'EN';
+    let languages = { 'EN': '' };
+    let fontSizes = [48];
+
+    // Initialize
+    setupEventListeners();
+    updateUI();
+
+    function setupEventListeners() {
+      // Text type selection
+      document.querySelectorAll('.text-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.text-type-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTextType = btn.dataset.type;
+        });
+      });
+
+      // Content input
+      document.getElementById('content-input').addEventListener('input', (e) => {
+        languages[currentLanguage] = e.target.value;
+      });
+
+      // Add language
+      document.getElementById('add-language-btn').addEventListener('click', () => {
+        const selectedLang = document.getElementById('language-select').value;
+        if (selectedLang && !languages[selectedLang]) {
+          languages[selectedLang] = '';
+          updateLanguageTabs();
+          switchToLanguage(selectedLang);
+          document.getElementById('language-select').value = '';
+        }
+      });
+
+      // Font size presets
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          fontSizes = btn.dataset.sizes.split(',').map(s => parseInt(s));
+          updateFontSizesUI();
+        });
+      });
+
+      // Add font size
+      document.getElementById('add-font-size').addEventListener('click', () => {
+        fontSizes.push(16);
+        updateFontSizesUI();
+      });
+
+      // Action buttons
+      document.getElementById('create-variants').addEventListener('click', createVariants);
+      document.getElementById('create-components').addEventListener('click', createComponents);
+      document.getElementById('update-existing').addEventListener('click', updateExisting);
+
+      // Listen for plugin messages
+      window.onmessage = (event) => {
+        const msg = event.data.pluginMessage;
+        if (msg) handlePluginMessage(msg);
+      };
+    }
+
+    function updateLanguageTabs() {
+      const container = document.querySelector('.language-tabs');
+      container.innerHTML = '';
+      
+      Object.keys(languages).forEach(lang => {
+        const tab = document.createElement('div');
+        tab.className = `language-tab ${lang === currentLanguage ? 'active' : ''}`;
+        tab.dataset.lang = lang;
+        tab.textContent = lang;
+        tab.addEventListener('click', () => switchToLanguage(lang));
+        
+        if (lang !== 'EN') {
+          const removeBtn = document.createElement('span');
+          removeBtn.textContent = ' ×';
+          removeBtn.style.cursor = 'pointer';
+          removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            delete languages[lang];
+            if (currentLanguage === lang) switchToLanguage('EN');
+            updateLanguageTabs();
+          });
+          tab.appendChild(removeBtn);
+        }
+        
+        container.appendChild(tab);
+      });
+    }
+
+    function switchToLanguage(lang) {
+      currentLanguage = lang;
+      document.getElementById('content-input').value = languages[lang] || '';
+      updateLanguageTabs();
+    }
+
+    function updateFontSizesUI() {
+      const container = document.getElementById('font-sizes-container');
+      container.innerHTML = '';
+      
+      fontSizes.forEach((size, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.style.display = 'flex';
+        wrapper.style.alignItems = 'center';
+        wrapper.style.gap = '4px';
+        
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.className = 'font-size-input';
+        input.value = size;
+        input.min = '8';
+        input.max = '200';
+        input.addEventListener('input', () => {
+          fontSizes[index] = parseInt(input.value) || 16;
+        });
+        
+        wrapper.appendChild(input);
+        
+        if (fontSizes.length > 1) {
+          const removeBtn = document.createElement('button');
+          removeBtn.textContent = '×';
+          removeBtn.style.cssText = 'width: 20px; height: 20px; padding: 0; border: 1px solid #e1e5e9; background: white; border-radius: 3px; cursor: pointer; font-size: 12px;';
+          removeBtn.addEventListener('click', () => {
+            fontSizes.splice(index, 1);
+            updateFontSizesUI();
+          });
+          wrapper.appendChild(removeBtn);
+        }
+        
+        container.appendChild(wrapper);
+      });
+    }
+
+    function updateUI() {
+      updateLanguageTabs();
+      updateFontSizesUI();
+    }
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status ${type}`;
+      status.style.display = 'block';
+      setTimeout(() => status.style.display = 'none', 4000);
+    }
+
+    function createVariants() {
+      const data = {
+        type: currentTextType,
+        languages: { ...languages },
+        fontSizes: [...fontSizes]
+      };
+      
+      parent.postMessage({ pluginMessage: { type: 'create-variants', data } }, '*');
+    }
+
+    function combineVariants() {
+      parent.postMessage({ pluginMessage: { type: 'combine-variants' } }, '*');
+    }
+
+    function createComponents() {
+      const data = {
+        type: currentTextType,
+        languages: { ...languages },
+        fontSizes: [...fontSizes]
+      };
+      
+      parent.postMessage({ pluginMessage: { type: 'create-components', data } }, '*');
+    }
+
+    function updateExisting() {
+      const data = {
+        type: currentTextType,
+        languages: { ...languages },
+        fontSizes: [...fontSizes]
+      };
+      
+      parent.postMessage({ pluginMessage: { type: 'update-components', data } }, '*');
+    }
+
+    function handlePluginMessage(msg) {
+      switch (msg.type) {
+        case 'success':
+          showStatus(msg.message, 'success');
+          break;
+        case 'error':
+          showStatus(msg.message, 'error');
+          break;
+      }
+    }
+  </script>
+</body>
+</html>
