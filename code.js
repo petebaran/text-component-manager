@@ -319,6 +319,9 @@ async function combineSelectedAsVariants() {
 
 // New functionality: Create variants from provided data
 async function createVariants(data) {
+  let xOffset = 0; // Horizontal offset for positioning Component Sets
+  const spacing = 64; // Space between Component Sets
+
   for (const headline of data.headlines) {
     const components = [];
 
@@ -335,18 +338,33 @@ async function createVariants(data) {
       textNode.fontSize = fontSize;
       textNode.characters = headline;
 
+      // Set text alignment to left
+      textNode.textAlignHorizontal = 'LEFT';
+      textNode.textAlignVertical = 'TOP';
+
+      // Set text layer to "fill container"
+      textNode.layoutAlign = 'STRETCH';
+      textNode.textAutoResize = 'HEIGHT';
+
+      // Set line height to 100%
+      textNode.lineHeight = { unit: 'PERCENT', value: 100 };
+
       // Append text node to component
       component.appendChild(textNode);
 
       // Enable auto layout
       component.layoutMode = 'VERTICAL';
-      component.primaryAxisAlignItems = 'CENTER';
-      component.counterAxisAlignItems = 'CENTER';
+      component.primaryAxisAlignItems = 'MIN'; // Align items to the left
+      component.counterAxisAlignItems = 'MIN'; // Align items to the top
       component.paddingLeft = 0;
       component.paddingRight = 0;
       component.paddingTop = 0;
       component.paddingBottom = 0;
       component.itemSpacing = 0;
+
+      // Set resizing to "Hug contents" for both width and height
+      component.primaryAxisSizingMode = 'AUTO'; // Hug contents horizontally
+      component.counterAxisSizingMode = 'AUTO'; // Hug contents vertically
 
       components.push(component);
     }
@@ -357,13 +375,24 @@ async function createVariants(data) {
 
       // Enable auto layout for the set
       set.layoutMode = 'VERTICAL';
-      set.primaryAxisAlignItems = 'CENTER';
-      set.counterAxisAlignItems = 'CENTER';
+      set.primaryAxisAlignItems = 'MIN'; // Align items to the left
+      set.counterAxisAlignItems = 'MIN'; // Align items to the top
       set.paddingLeft = 0;
       set.paddingRight = 0;
       set.paddingTop = 0;
       set.paddingBottom = 0;
       set.itemSpacing = 40;
+
+      // Set resizing to "Hug contents" for both width and height
+      set.primaryAxisSizingMode = 'AUTO'; // Hug contents horizontally
+      set.counterAxisSizingMode = 'AUTO'; // Hug contents vertically
+
+      // Position the Component Set to prevent overlapping
+      set.x = xOffset; // Position horizontally with spacing
+      set.y = 0; // Keep all Component Sets aligned vertically
+
+      // Update xOffset for the next Component Set
+      xOffset += set.width + spacing;
 
       figma.currentPage.selection = [set];
       figma.viewport.scrollAndZoomIntoView([set]);
