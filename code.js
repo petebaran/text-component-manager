@@ -302,7 +302,7 @@ async function combineSelectedAsVariants() {
 
   // Auto layout for the set
   set.layoutMode = 'VERTICAL';
-  set.primaryAxisAlignItems = 'LEFT';
+  set.primaryAxisAlignItems = 'CENTER';
   set.counterAxisAlignItems = 'CENTER';
   set.paddingLeft = 0;
   set.paddingRight = 0;
@@ -317,55 +317,75 @@ async function combineSelectedAsVariants() {
   figma.notify('Combined as variants!');
 }
 
-figma.ui.onmessage = async function(msg) {
+// New functionality: Create variants from provided data
+async function createVariants(data) {
+  for (const headline of data.headlines) {
+    const components = [];
+
+    for (const fontSize of data.fontSizes) {
+      const component = figma.createComponent();
+      component.name = `${headline}-${fontSize}px`;
+
+      // Create text node
+      const textNode = figma.createText();
+      const fontName = await getFontForTextType('headline'); // Assuming headline type
+      await figma.loadFontAsync(fontName);
+
+      textNode.fontName = fontName;
+      textNode.fontSize = fontSize;
+      textNode.characters = headline;
+
+      // Append text node to component
+      component.appendChild(textNode);
+
+      // Enable auto layout
+      component.layoutMode = 'VERTICAL';
+      component.primaryAxisAlignItems = 'CENTER';
+      component.counterAxisAlignItems = 'CENTER';
+      component.paddingLeft = 0;
+      component.paddingRight = 0;
+      component.paddingTop = 0;
+      component.paddingBottom = 0;
+      component.itemSpacing = 0;
+
+      components.push(component);
+    }
+
+    if (components.length > 0) {
+      const set = figma.combineAsVariants(components, figma.currentPage);
+      set.name = `${headline} Component Set`;
+
+      // Enable auto layout for the set
+      set.layoutMode = 'VERTICAL';
+      set.primaryAxisAlignItems = 'CENTER';
+      set.counterAxisAlignItems = 'CENTER';
+      set.paddingLeft = 0;
+      set.paddingRight = 0;
+      set.paddingTop = 0;
+      set.paddingBottom = 0;
+      set.itemSpacing = 40;
+
+      figma.currentPage.selection = [set];
+      figma.viewport.scrollAndZoomIntoView([set]);
+    }
+  }
+
+  figma.notify('Created variants successfully!');
+}
+
+figma.ui.onmessage = async function (msg) {
   try {
-    switch (msg.type) {
-      case 'create-components':
-        const components = await createTextComponents(msg.data, false);
-        figma.ui.postMessage({
-          type: 'success',
-          message: `Created ${components.length} individual components!`
-        });
-        break;
-
-      case 'create-variants':
-        const variantComponents = await createTextComponents(msg.data, true);
-        if (variantComponents.length === 1 && variantComponents[0].type === 'COMPONENT_SET') {
-          figma.ui.postMessage({
-            type: 'success',
-            message: `Created variant set with ${variantComponents[0].children.length} components!`
-          });
-        } else {
-          figma.ui.postMessage({
-            type: 'success',
-            message: `Created ${variantComponents.length} components ready for variants. Click "Combine as Variants" next.`
-          });
-        }
-        break;
-
-      case 'combine-variants':
-        combineAsVariants();
-        break;
-
-      case 'combine-selected-as-variants':
-        await combineSelectedAsVariants();
-        break;
-
-      case 'update-components':
-        const updatedCount = await updateSelectedComponents(msg.data);
-        figma.ui.postMessage({
-          type: 'success',
-          message: `Updated ${updatedCount} selected components!`
-        });
-        break;
-        
-      default:
-        break;
+    if (msg.type === 'create-variants') {
+      await createVariants(msg.data); // Ensure this matches the function name
+    } else if (msg.type === 'create-components') {
+      await createTextComponents(msg.data);
+    } else if (msg.type === 'update-components') {
+      await updateSelectedComponents(msg.data);
+    } else if (msg.type === 'combine-variants') {
+      await combineSelectedAsVariants();
     }
   } catch (error) {
-    figma.ui.postMessage({
-      type: 'error',
-      message: `Error: ${error.message}`
-    });
+    console.error('Error handling message:', error);
+    figma.notify('An error occurred. Check the console for details.');
   }
 };

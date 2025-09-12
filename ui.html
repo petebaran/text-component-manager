@@ -186,6 +186,22 @@
       color: #c62828;
       border: 1px solid #ffcdd2;
     }
+
+    /* Adjust textarea to single-line input */
+    #content-input {
+      height: auto;
+      min-height: unset;
+      padding: 8px;
+    }
+
+    .headline-input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #e1e5e9;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: inherit;
+    }
   </style>
 </head>
 <body>
@@ -201,12 +217,33 @@
   </div>
 
   <div class="section">
+    <div class="section-title">Multiple Headlines</div>
+    <div id="headlines-container">
+      <div class="form-group">
+        <input type="text" class="input headline-input" placeholder="Enter a headline..." />
+      </div>
+    </div>
+    <button class="btn btn-secondary" id="add-headline-btn">+ Add Headline</button>
+
+    <div class="form-group">
+      <div class="label">Languages</div>
+      <select class="select" id="language-select">
+        <option value="EN">English (EN)</option>
+        <option value="DE">German (DE)</option>
+        <option value="ES">Spanish (ES)</option>
+        <option value="FR">French (FR)</option>
+        <option value="IT">Italian (IT)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section">
     <div class="section-title">Languages & Content</div>
     <div class="language-tabs">
       <div class="language-tab active" data-lang="EN">EN</div>
     </div>
     <div class="form-group">
-      <textarea class="textarea" id="content-input" placeholder="Enter your text content..."></textarea>
+      <input type="text" class="input" id="content-input" placeholder="Enter your text content..." />
     </div>
     <div class="add-language">
       <select class="select" id="language-select">
@@ -309,6 +346,23 @@
       document.getElementById('create-components').addEventListener('click', createComponents);
       document.getElementById('update-existing').addEventListener('click', updateExisting);
 
+      // Add functionality for multiple headlines
+      const headlinesContainer = document.getElementById('headlines-container');
+      const addHeadlineBtn = document.getElementById('add-headline-btn');
+
+      addHeadlineBtn.addEventListener('click', () => {
+        const headlineInput = document.createElement('input');
+        headlineInput.type = 'text';
+        headlineInput.className = 'input headline-input';
+        headlineInput.placeholder = 'Enter a headline...';
+
+        const formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
+        formGroup.appendChild(headlineInput);
+
+        headlinesContainer.appendChild(formGroup);
+      });
+
       // Listen for plugin messages
       window.onmessage = (event) => {
         const msg = event.data.pluginMessage;
@@ -401,12 +455,21 @@
     }
 
     function createVariants() {
+      const headlines = Array.from(document.querySelectorAll('.headline-input'))
+        .map(input => input.value.trim())
+        .filter(headline => headline.length > 0); // Get all non-empty headlines
+
+      if (headlines.length === 0) {
+        showStatus('Please add at least one headline.', 'error');
+        return;
+      }
+
       const data = {
-        type: currentTextType,
-        languages: { ...languages },
-        fontSizes: [...fontSizes]
+        headlines,
+        fontSizes: [...fontSizes],
+        languages: { ...languages }
       };
-      
+
       parent.postMessage({ pluginMessage: { type: 'create-variants', data } }, '*');
     }
 
