@@ -221,20 +221,32 @@
     <div id="headlines-container">
       <div class="form-group">
         <input type="text" class="input headline-input" placeholder="Enter a headline..." />
+        <button class="btn btn-secondary remove-btn">Remove</button>
       </div>
     </div>
     <button class="btn btn-secondary" id="add-headline-btn">+ Add Headline</button>
+  </div>
 
-    <div class="form-group">
-      <div class="label">Languages</div>
-      <select class="select" id="language-select">
-        <option value="EN">English (EN)</option>
-        <option value="DE">German (DE)</option>
-        <option value="ES">Spanish (ES)</option>
-        <option value="FR">French (FR)</option>
-        <option value="IT">Italian (IT)</option>
-      </select>
+  <div class="section">
+    <div class="section-title">Multiple Subheadlines</div>
+    <div id="subheadlines-container">
+      <div class="form-group">
+        <input type="text" class="input subheadline-input" placeholder="Enter a subheadline..." />
+        <button class="btn btn-secondary remove-btn">Remove</button>
+      </div>
     </div>
+    <button class="btn btn-secondary" id="add-subheadline-btn">+ Add Subheadline</button>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Multiple Disclaimers</div>
+    <div id="disclaimers-container">
+      <div class="form-group">
+        <input type="text" class="input disclaimer-input" placeholder="Enter a disclaimer..." />
+        <button class="btn btn-secondary remove-btn">Remove</button>
+      </div>
+    </div>
+    <button class="btn btn-secondary" id="add-disclaimer-btn">+ Add Disclaimer</button>
   </div>
 
   <div class="section">
@@ -351,16 +363,68 @@
       const addHeadlineBtn = document.getElementById('add-headline-btn');
 
       addHeadlineBtn.addEventListener('click', () => {
+        const formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
+
         const headlineInput = document.createElement('input');
         headlineInput.type = 'text';
         headlineInput.className = 'input headline-input';
         headlineInput.placeholder = 'Enter a headline...';
 
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn btn-secondary remove-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => formGroup.remove());
+
+        formGroup.appendChild(headlineInput);
+        formGroup.appendChild(removeBtn);
+        headlinesContainer.appendChild(formGroup);
+      });
+
+      // Add functionality for multiple subheadlines
+      const subheadlinesContainer = document.getElementById('subheadlines-container');
+      const addSubheadlineBtn = document.getElementById('add-subheadline-btn');
+
+      addSubheadlineBtn.addEventListener('click', () => {
         const formGroup = document.createElement('div');
         formGroup.className = 'form-group';
-        formGroup.appendChild(headlineInput);
 
-        headlinesContainer.appendChild(formGroup);
+        const subheadlineInput = document.createElement('input');
+        subheadlineInput.type = 'text';
+        subheadlineInput.className = 'input subheadline-input';
+        subheadlineInput.placeholder = 'Enter a subheadline...';
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn btn-secondary remove-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => formGroup.remove());
+
+        formGroup.appendChild(subheadlineInput);
+        formGroup.appendChild(removeBtn);
+        subheadlinesContainer.appendChild(formGroup);
+      });
+
+      // Add functionality for multiple disclaimers
+      const disclaimersContainer = document.getElementById('disclaimers-container');
+      const addDisclaimerBtn = document.getElementById('add-disclaimer-btn');
+
+      addDisclaimerBtn.addEventListener('click', () => {
+        const formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
+
+        const disclaimerInput = document.createElement('input');
+        disclaimerInput.type = 'text';
+        disclaimerInput.className = 'input disclaimer-input';
+        disclaimerInput.placeholder = 'Enter a disclaimer...';
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'btn btn-secondary remove-btn';
+        removeBtn.textContent = 'Remove';
+        removeBtn.addEventListener('click', () => formGroup.remove());
+
+        formGroup.appendChild(disclaimerInput);
+        formGroup.appendChild(removeBtn);
+        disclaimersContainer.appendChild(formGroup);
       });
 
       // Listen for plugin messages
@@ -457,17 +521,30 @@
     function createVariants() {
       const headlines = Array.from(document.querySelectorAll('.headline-input'))
         .map(input => input.value.trim())
-        .filter(headline => headline.length > 0); // Get all non-empty headlines
+        .filter(item => item.length > 0); // Get all non-empty headlines
 
-      if (headlines.length === 0) {
-        showStatus('Please add at least one headline.', 'error');
+      const subheadlines = Array.from(document.querySelectorAll('.subheadline-input'))
+        .map(input => input.value.trim())
+        .filter(item => item.length > 0); // Get all non-empty subheadlines
+
+      const disclaimers = Array.from(document.querySelectorAll('.disclaimer-input'))
+        .map(input => input.value.trim())
+        .filter(item => item.length > 0); // Get all non-empty disclaimers
+
+      if (headlines.length === 0 && subheadlines.length === 0 && disclaimers.length === 0) {
+        showStatus('Please add at least one text item.', 'error');
         return;
       }
 
       const data = {
         headlines,
-        fontSizes: [...fontSizes],
-        languages: { ...languages }
+        subheadlines,
+        disclaimers,
+        fontSizes: {
+          headline: [...fontSizes], // Use current font sizes for Headlines
+          subheadline: [...fontSizes], // Use current font sizes for Subheadlines
+          disclaimer: [...fontSizes] // Use current font sizes for Disclaimers
+        }
       };
 
       parent.postMessage({ pluginMessage: { type: 'create-variants', data } }, '*');
