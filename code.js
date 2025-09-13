@@ -45,20 +45,17 @@ async function combineSelectedAsVariants() {
   const set = figma.combineAsVariants(selectedComponents, figma.currentPage);
   set.name = 'Combined Component Set';
 
-  // Optionally, add variant properties based on component names
-  // Example: If names are "headline-EN-128px", "headline-DE-128px", etc.
-  set.addComponentProperty('Language', { type: 'VARIANT', defaultValue: 'EN' });
+  // Only add Size property, since Language is not used in this plugin
   set.addComponentProperty('Size', { type: 'VARIANT', defaultValue: '128px' });
 
   for (const child of set.children) {
     if (child.type !== 'COMPONENT') continue;
-    // Try to extract language and size from the name
+    // Try to extract size from the name
     const parts = child.name.split('-');
     if (parts.length >= 3) {
-      const language = parts[1] || 'EN';
       const size = parts[2] || '128px';
       try {
-        child.setProperties({ Language: language, Size: size });
+        child.setProperties({ Size: size });
       } catch (e) {}
     }
     // Optionally, rename child to a generic name
@@ -113,7 +110,7 @@ async function createVariants(data) {
 
       for (const fontSize of data.fontSizes[textType.slice(0, -1)]) { // Use font sizes specific to the text type
         const component = figma.createComponent();
-        component.name = `${textItem}-${fontSize}px`;
+        component.name = `${fontSize}px`;
 
         // Create text node
         const textNode = figma.createText();
