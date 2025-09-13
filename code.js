@@ -100,7 +100,7 @@ async function createVariants(data) {
       continue; // Skip if no text items for this type
     }
     for (const textItem of textItems) {
-      const setName = `${textItem} Component Set (${textType.slice(0, -1)})`;
+      const setName = `${textItem}`;
       if (existingSetNames.has(setName)) {
         figma.notify(`Skipped duplicate: ${setName}`);
         continue; // Skip creating duplicate set
