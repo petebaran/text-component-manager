@@ -207,14 +207,7 @@
 <body>
   <div id="status" class="status"></div>
 
-  <div class="section">
-    <div class="section-title">Text Type</div>
-    <div class="text-type-buttons">
-      <button class="text-type-btn active" data-type="headline">Headline</button>
-      <button class="text-type-btn" data-type="subheadline">Subheadline</button>
-      <button class="text-type-btn" data-type="disclaimer">Disclaimer</button>
-    </div>
-  </div>
+  <!-- Text type toggle removed: interface now collects all categories at once -->
 
   <div class="section">
     <div class="section-title">Multiple Headlines</div>
@@ -225,6 +218,18 @@
       </div>
     </div>
     <button class="btn btn-secondary" id="add-headline-btn">+ Add Headline</button>
+
+    <div class="form-group" style="margin-top:12px;">
+      <div class="label">Headline Font Sizes</div>
+      <div class="preset-buttons" id="preset-buttons-headline">
+        <button class="preset-btn" data-target="headline" data-sizes="128,120,104,96,80,72">Large Banners</button>
+        <button class="preset-btn" data-target="headline" data-sizes="64,56,48,36,24">Medium Banners</button>
+        <button class="preset-btn" data-target="headline" data-sizes="20,16,14">Small Banners</button>
+        <button class="preset-btn" data-target="headline" data-sizes="128,120,104,96,80,72,64,56,48,36,24,20,16,14">All Sizes</button>
+      </div>
+      <div class="font-sizes" id="font-sizes-headline"></div>
+      <button class="btn btn-secondary" id="add-size-headline">+ Add Size</button>
+    </div>
   </div>
 
   <div class="section">
@@ -236,6 +241,17 @@
       </div>
     </div>
     <button class="btn btn-secondary" id="add-subheadline-btn">+ Add Subheadline</button>
+
+    <div class="form-group" style="margin-top:12px;">
+      <div class="label">Subheadline Font Sizes</div>
+      <div class="preset-buttons" id="preset-buttons-subheadline">
+        <button class="preset-btn" data-target="subheadline" data-sizes="48,36,32,28,24">Common</button>
+        <button class="preset-btn" data-target="subheadline" data-sizes="24,20,18,16,14">Compact</button>
+        <button class="preset-btn" data-target="subheadline" data-sizes="48,36,32,28,24,20,18,16,14">All Sizes</button>
+      </div>
+      <div class="font-sizes" id="font-sizes-subheadline"></div>
+      <button class="btn btn-secondary" id="add-size-subheadline">+ Add Size</button>
+    </div>
   </div>
 
   <div class="section">
@@ -247,116 +263,67 @@
       </div>
     </div>
     <button class="btn btn-secondary" id="add-disclaimer-btn">+ Add Disclaimer</button>
-  </div>
 
-  <div class="section">
-    <div class="section-title">Languages & Content</div>
-    <div class="language-tabs">
-      <div class="language-tab active" data-lang="EN">EN</div>
-    </div>
-    <div class="form-group">
-      <input type="text" class="input" id="content-input" placeholder="Enter your text content..." />
-    </div>
-    <div class="add-language">
-      <select class="select" id="language-select">
-        <option value="">Add language...</option>
-        <option value="DE">German (DE)</option>
-        <option value="ES">Spanish (ES)</option>
-        <option value="ES-LATAM">Spanish LATAM</option>
-        <option value="FR">French (FR)</option>
-        <option value="IT">Italian (IT)</option>
-        <option value="PL">Polish (PL)</option>
-        <option value="JPY">Japanese (JPY)</option>
-        <option value="PT">Portuguese (PT)</option>
-        <option value="NL">Dutch (NL)</option>
-        <option value="RU">Russian (RU)</option>
-      </select>
-      <button class="btn btn-secondary" id="add-language-btn">Add</button>
+    <div class="form-group" style="margin-top:12px;">
+      <div class="label">Disclaimer Font Sizes</div>
+      <div class="preset-buttons" id="preset-buttons-disclaimer">
+        <button class="preset-btn" data-target="disclaimer" data-sizes="16,14,12,10">Common</button>
+        <button class="preset-btn" data-target="disclaimer" data-sizes="14,12,10,9,8">Extra Compact</button>
+        <button class="preset-btn" data-target="disclaimer" data-sizes="20,16,14,12,10,9,8">All Sizes</button>
+      </div>
+      <div class="font-sizes" id="font-sizes-disclaimer"></div>
+      <button class="btn btn-secondary" id="add-size-disclaimer">+ Add Size</button>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">Font Sizes</div>
-    <div class="form-group">
-      <div class="label">Banner Size Presets</div>
-      <div class="preset-buttons">
-        <button class="preset-btn" data-sizes="128,120,104,96,80,72">Large Banners</button>
-        <button class="preset-btn" data-sizes="64,56,48,36,24">Medium Banners</button>
-        <button class="preset-btn" data-sizes="20,16,14">Small Banners</button>
-        <button class="preset-btn" data-sizes="128,120,104,96,80,72,64,56,48,36,24,20,16,14">All Sizes</button>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="label">Custom Sizes (px)</div>
-      <div class="font-sizes" id="font-sizes-container">
-        <input type="number" class="font-size-input" value="48" min="8" max="200">
-      </div>
-      <button class="btn btn-secondary" id="add-font-size">+ Add Size</button>
-    </div>
-  </div>
+  <!-- Unified font sizes section removed; each category has its own controls -->
 
   <div class="section">
     <button class="btn btn-primary" id="create-variants">Create as Variants</button>
-    <button class="btn btn-secondary" id="create-components">Create Individual Components</button>
-    <button class="btn btn-secondary" id="update-existing">Update Existing Components</button>
   </div>
 
   <script>
-    let currentTextType = 'headline';
-    let currentLanguage = 'EN';
-    let languages = { 'EN': '' };
-    let fontSizes = [48];
+    // Per-category font size sets
+    const fontSizes = {
+      headline: [48],
+      subheadline: [24],
+      disclaimer: [12]
+    };
 
     // Initialize
     setupEventListeners();
     updateUI();
 
     function setupEventListeners() {
-      // Text type selection
-      document.querySelectorAll('.text-type-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('.text-type-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentTextType = btn.dataset.type;
-        });
-      });
-
-      // Content input
-      document.getElementById('content-input').addEventListener('input', (e) => {
-        languages[currentLanguage] = e.target.value;
-      });
-
-      // Add language
-      document.getElementById('add-language-btn').addEventListener('click', () => {
-        const selectedLang = document.getElementById('language-select').value;
-        if (selectedLang && !languages[selectedLang]) {
-          languages[selectedLang] = '';
-          updateLanguageTabs();
-          switchToLanguage(selectedLang);
-          document.getElementById('language-select').value = '';
-        }
-      });
-
-      // Font size presets
+      // Font size presets per category
       document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+          const target = btn.dataset.target;
+          // Mark active inside its own preset group
+          btn.parentElement.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          fontSizes = btn.dataset.sizes.split(',').map(s => parseInt(s));
-          updateFontSizesUI();
+          fontSizes[target] = btn.dataset.sizes.split(',').map(s => parseInt(s));
+          updateFontSizesUI(target);
         });
       });
 
-      // Add font size
-      document.getElementById('add-font-size').addEventListener('click', () => {
-        fontSizes.push(16);
-        updateFontSizesUI();
+      // Add font size per category
+      document.getElementById('add-size-headline').addEventListener('click', () => {
+        fontSizes.headline.push(16);
+        updateFontSizesUI('headline');
+      });
+      document.getElementById('add-size-subheadline').addEventListener('click', () => {
+        fontSizes.subheadline.push(16);
+        updateFontSizesUI('subheadline');
+      });
+      document.getElementById('add-size-disclaimer').addEventListener('click', () => {
+        fontSizes.disclaimer.push(12);
+        updateFontSizesUI('disclaimer');
       });
 
       // Action buttons
       document.getElementById('create-variants').addEventListener('click', createVariants);
-      document.getElementById('create-components').addEventListener('click', createComponents);
-      document.getElementById('update-existing').addEventListener('click', updateExisting);
+  // Removed other action buttons
 
       // Add functionality for multiple headlines
       const headlinesContainer = document.getElementById('headlines-container');
@@ -433,51 +400,17 @@
         if (msg) handlePluginMessage(msg);
       };
     }
-
-    function updateLanguageTabs() {
-      const container = document.querySelector('.language-tabs');
+    function updateFontSizesUI(type) {
+      const sizes = fontSizes[type];
+      const container = document.getElementById(`font-sizes-${type}`);
       container.innerHTML = '';
-      
-      Object.keys(languages).forEach(lang => {
-        const tab = document.createElement('div');
-        tab.className = `language-tab ${lang === currentLanguage ? 'active' : ''}`;
-        tab.dataset.lang = lang;
-        tab.textContent = lang;
-        tab.addEventListener('click', () => switchToLanguage(lang));
-        
-        if (lang !== 'EN') {
-          const removeBtn = document.createElement('span');
-          removeBtn.textContent = ' ×';
-          removeBtn.style.cursor = 'pointer';
-          removeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            delete languages[lang];
-            if (currentLanguage === lang) switchToLanguage('EN');
-            updateLanguageTabs();
-          });
-          tab.appendChild(removeBtn);
-        }
-        
-        container.appendChild(tab);
-      });
-    }
 
-    function switchToLanguage(lang) {
-      currentLanguage = lang;
-      document.getElementById('content-input').value = languages[lang] || '';
-      updateLanguageTabs();
-    }
-
-    function updateFontSizesUI() {
-      const container = document.getElementById('font-sizes-container');
-      container.innerHTML = '';
-      
-      fontSizes.forEach((size, index) => {
+      sizes.forEach((size, index) => {
         const wrapper = document.createElement('div');
         wrapper.style.display = 'flex';
         wrapper.style.alignItems = 'center';
         wrapper.style.gap = '4px';
-        
+
         const input = document.createElement('input');
         input.type = 'number';
         input.className = 'font-size-input';
@@ -485,29 +418,28 @@
         input.min = '8';
         input.max = '200';
         input.addEventListener('input', () => {
-          fontSizes[index] = parseInt(input.value) || 16;
+          fontSizes[type][index] = parseInt(input.value) || size;
         });
-        
+
         wrapper.appendChild(input);
-        
-        if (fontSizes.length > 1) {
+
+        if (sizes.length > 1) {
           const removeBtn = document.createElement('button');
           removeBtn.textContent = '×';
           removeBtn.style.cssText = 'width: 20px; height: 20px; padding: 0; border: 1px solid #e1e5e9; background: white; border-radius: 3px; cursor: pointer; font-size: 12px;';
           removeBtn.addEventListener('click', () => {
-            fontSizes.splice(index, 1);
-            updateFontSizesUI();
+            fontSizes[type].splice(index, 1);
+            updateFontSizesUI(type);
           });
           wrapper.appendChild(removeBtn);
         }
-        
+
         container.appendChild(wrapper);
       });
     }
 
     function updateUI() {
-      updateLanguageTabs();
-      updateFontSizesUI();
+      ['headline','subheadline','disclaimer'].forEach(updateFontSizesUI);
     }
 
     function showStatus(message, type) {
@@ -541,38 +473,16 @@
         subheadlines,
         disclaimers,
         fontSizes: {
-          headline: [...fontSizes], // Use current font sizes for Headlines
-          subheadline: [...fontSizes], // Use current font sizes for Subheadlines
-          disclaimer: [...fontSizes] // Use current font sizes for Disclaimers
+          headline: [...fontSizes.headline],
+          subheadline: [...fontSizes.subheadline],
+          disclaimer: [...fontSizes.disclaimer]
         }
       };
 
       parent.postMessage({ pluginMessage: { type: 'create-variants', data } }, '*');
     }
 
-    function combineVariants() {
-      parent.postMessage({ pluginMessage: { type: 'combine-variants' } }, '*');
-    }
-
-    function createComponents() {
-      const data = {
-        type: currentTextType,
-        languages: { ...languages },
-        fontSizes: [...fontSizes]
-      };
-      
-      parent.postMessage({ pluginMessage: { type: 'create-components', data } }, '*');
-    }
-
-    function updateExisting() {
-      const data = {
-        type: currentTextType,
-        languages: { ...languages },
-        fontSizes: [...fontSizes]
-      };
-      
-      parent.postMessage({ pluginMessage: { type: 'update-components', data } }, '*');
-    }
+    // combineVariants/createComponents/updateExisting removed per new workflow
 
     function handlePluginMessage(msg) {
       switch (msg.type) {

@@ -181,10 +181,6 @@ figma.ui.onmessage = async function (msg) {
   try {
     if (msg.type === 'create-variants') {
       await createVariants(msg.data); // Ensure this matches the function name
-    } else if (msg.type === 'create-components') {
-      await createTextComponents(msg.data);
-    } else if (msg.type === 'update-components') {
-      await updateSelectedComponents(msg.data);
     } else if (msg.type === 'combine-variants') {
       await combineSelectedAsVariants();
     }
