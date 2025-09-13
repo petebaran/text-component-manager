@@ -84,19 +84,31 @@ async function combineSelectedAsVariants() {
 
 // New functionality: Create variants from provided data
 async function createVariants(data) {
-  let xOffset = 0; // Horizontal offset for positioning Component Sets
   const spacing = 64; // Space between Component Sets
+  // Find the rightmost existing component set to start xOffset
+  const existingSets = figma.currentPage.children.filter(node => node.type === 'COMPONENT_SET');
+  let xOffset = 0;
+  if (existingSets.length > 0) {
+    xOffset = Math.max(...existingSets.map(set => set.x + set.width)) + spacing;
+  }
 
   const textTypes = ['headlines', 'subheadlines', 'disclaimers']; // Process all text types
 
+  // Collect all existing set names once
+  const existingSetNames = new Set(existingSets.map(set => set.name));
+
   for (const textType of textTypes) {
     const textItems = data[textType]; // Get text items for the current type
-
     if (!textItems || textItems.length === 0) {
       continue; // Skip if no text items for this type
     }
-
     for (const textItem of textItems) {
+      const setName = `${textItem} Component Set (${textType.slice(0, -1)})`;
+      if (existingSetNames.has(setName)) {
+        figma.notify(`Skipped duplicate: ${setName}`);
+        continue; // Skip creating duplicate set
+      }
+
       const components = [];
 
       for (const fontSize of data.fontSizes[textType.slice(0, -1)]) { // Use font sizes specific to the text type
@@ -122,6 +134,7 @@ async function createVariants(data) {
 
         // Set line height to 100%
         textNode.lineHeight = { unit: 'PERCENT', value: 100 };
+        textNode.letterSpacing = { unit: 'PERCENT', value: -2 };
 
         // Append text node to component
         component.appendChild(textNode);
@@ -145,7 +158,7 @@ async function createVariants(data) {
 
       if (components.length > 0) {
         const set = figma.combineAsVariants(components, figma.currentPage);
-        set.name = `${textItem} Component Set (${textType.slice(0, -1)})`;
+        set.name = setName;
 
         // Add a shared TEXT property on the set and bind all variant text layers to it
         let textPropName;
@@ -187,8 +200,7 @@ async function createVariants(data) {
         set.x = xOffset; // Position horizontally with spacing
         set.y = 0; // Keep all Component Sets aligned vertically
 
-        // Update xOffset for the next Component Set
-        xOffset += set.width + spacing;
+        xOffset += set.width + spacing; // Update xOffset for the next Component Set
 
         figma.currentPage.selection = [set];
         figma.viewport.scrollAndZoomIntoView([set]);

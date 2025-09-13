@@ -3,6 +3,24 @@
 <head>
   <meta charset="utf-8">
   <style>
+    :root {
+      --color-primary: #02080d;
+      --color-primary-hover: #373b3d;
+      --color-outline-hover: #e1e5e9;
+      --color-danger: #ff5252;
+      --color-danger-hover: #b71c1c;
+      --color-danger-bg: #ffeaea;
+      --color-border: #e1e5e9;
+      --color-status-success-bg: #e8f5e8;
+      --color-status-success-border: #c8e6c9;
+      --color-status-success-text: #2e7d32;
+      --color-status-error-bg: #ffebee;
+      --color-status-error-border: #ffcdd2;
+      --color-status-error-text: #c62828;
+      --color-link: #338cf9;
+      --color-link-hover: #2c52d1;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { 
       font-family: 'Inter', sans-serif; 
@@ -24,45 +42,148 @@
     }
     .form-group { margin-bottom: 12px; display:flex; gap:8px; align-items:center; }
     .label { display: block; margin-bottom: 6px; font-weight: 500; color: #5f6368; font-size: 11px; }
-    .input { padding: 8px; border: 1px solid #e1e5e9; border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .input { padding: 8px; border: 1px solid var(--color-border); border-radius: 6px; font-size: 12px; font-family: inherit; }
     .headline-input { width: 100%; }
     .btn { padding: 10px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 12px; margin-bottom: 8px; }
-    .btn-primary { background: #1976d2; color: white; }
-    .btn-primary:hover { background: #1565c0; }
-    .btn-secondary { background: white; color: #1976d2; border: 1px solid #1976d2; }
-    .btn-secondary:hover { background: #f8f9fa; }
+    .btn-secondary { background: white; color: var(--color-primary); border: 1px solid var(--color-primary); }
+    .btn-secondary:hover { background: #d3d6da; }
     .status { padding: 12px; border-radius: 6px; font-size: 11px; margin-bottom: 16px; display: none; }
-    .status.success { background: #e8f5e8; color: #2e7d32; border: 1px solid #c8e6c9; }
-    .status.error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
-    .btn-outline-primary { width: 100%; background: white; color: #1976d2; border: 2px solid #1976d2; border-radius: 20px; padding: 12px 16px; font-weight: 600; font-size: 14px; transition: background 0.15s, color 0.15s; }
+    .status.success { background: var(--color-status-success-bg); color: var(--color-status-success-text); border: 1.3px solid var(--color-status-success-border); }
+    .status.error { background: var(--color-status-error-bg); color: var(--color-status-error-text); border: 1.3px solid var(--color-status-error-border); }
+    .btn-outline-primary { 
+      width: 100%; 
+      background: white; 
+      color: var(--color-primary); 
+      border: 1.3px solid var(--color-primary); 
+      border-radius: 20px; 
+      padding: 12px 16px; 
+      font-weight: 600; 
+      font-size: 14px; 
+      transition: background 0.15s, color 0.15s, border 0.15s; 
+    }
+    .btn-outline-primary:hover {
+      background: var(--color-outline-hover);
+      color: #02080d;
+      border-color: #02080d;
+    }
     .btn-filled-primary {
       width: 100%;
-      background: #1976d2;
+      background: var(--color-primary);
       color: white;
-      border: 2px solid #1976d2;
+      border: 1.3px solid var(--color-primary);
       border-radius: 20px;
       padding: 12px 16px;
       font-weight: 600;
       font-size: 14px;
-      transition: background 0.15s, color 0.15s;
+      transition: background 0.15s, color 0.15s, border 0.15s;
     }
     .btn-filled-primary:hover {
-      background: #1565c0;
-      border-color: #1565c0;
+      background: var(--color-primary-hover);
+      border-color: var(--color-primary-hover);
+      color: white;
     }
-    .remove-pill { border: 1px solid #ff5252; color: #ff5252; background: white; border-radius: 20px; padding: 8px 12px; cursor: pointer; font-weight: 600; }
+    .remove-pill { border: 1.3px solid var(--color-danger); color: var(--color-danger); background: white; border-radius: 20px; padding: 8px 12px; cursor: pointer; font-weight: 600; }
+    .remove-pill:hover {
+      background: rgba(255, 227, 233, 0.975);
+      color: var(--color-danger);
+      border-color: var(--color-danger);
+    }
   .font-sizes-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; align-items: center; }
-  .size-item { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid #e1e5e9; background: white; border-radius: 6px; justify-content: center; font-size: 13px; min-width: 56px; box-sizing: border-box; }
+  .size-item { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid var(--color-border); background: white; border-radius: 6px; justify-content: center; font-size: 13px; min-width: 56px; box-sizing: border-box; }
   .size-item input { width: 16px; height: 16px; }
   .size-item span { margin-left: 6px; }
   .size-item input { width: 16px; height: 16px; }
   .size-item span { margin-left: 4px; }
     .font-actions { margin-left: auto; font-size: 11px; color: #5f6368; display:flex; gap:8px; align-items:center; }
-    .font-actions a { cursor:pointer; color:#1976d2; text-decoration:none; }
+    .font-actions a { cursor:pointer; color:var(--color-link); text-decoration:none; }
     .add-custom-btn { float: right; }
     /* Adjust textarea to single-line input */
     #content-input { height: auto; min-height: unset; padding: 8px; }
-    .headline-input { width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .headline-input { width: 100%; padding: 8px; border: 1.3px solid var(--color-border); border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .remove-size-btn {
+      background: none;
+      border: none;
+      color: #b71c1c;
+      font-size: 15px;
+      margin-left: 4px;
+      cursor: pointer;
+      padding: 0 2px;
+      border-radius: 3px;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+    .remove-size-btn:hover {
+      background: var(--color-danger-bg);
+    }
+    /* Custom size input and Add button styling */
+    .custom-size-row input[type="number"] {
+      width: 120px;
+      padding: 8px 10px;
+      border: 1.3px solid var(--color-border);
+      border-radius: 20px;
+      font-size: 13px;
+      background: #fafbfc;
+      margin-right: 8px;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .custom-size-row input[type="number"]:focus {
+      border: 1.5px solid #1976d2;
+      background: #fff;
+    }
+    .add-custom-btn {
+      border: 1.3px solid #1976d2;
+      background: white;
+      color: #1976d2;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      margin: 0;
+      transition: background 0.15s, color 0.15s, border 0.15s;
+      box-shadow: none;
+    }
+    .add-custom-btn:hover {
+      background: #e3f0fd;
+      color: #1251a3;
+      border-color: #1251a3;
+    }
+    /* Custom styled checkboxes for .size-item */
+    .size-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--color-primary);
+      border-radius: 5px;
+      background: #fff;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      transition: border 0.15s, box-shadow 0.15s;
+      margin: 0;
+      vertical-align: middle;
+    }
+    .size-item input[type="checkbox"]:checked {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+    .size-item input[type="checkbox"]:checked::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 4px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 2.5px 2.5px 0;
+      border-radius: 1px;
+      transform: translate(-50%, -55%) rotate(45deg);
+    }
+    .size-item input[type="checkbox"]:hover {
+      box-shadow: 0 0 0 2px var(--color-outline-hover);
+    }
   </style>
 </head>
 <body>
@@ -71,7 +192,7 @@
   <!-- Text type toggle removed: interface now collects all categories at once -->
 
   <div class="section">
-    <div class="section-title">Multiple Headlines</div>
+    <div class="section-title">Headlines</div>
     <div id="headlines-container"></div>
     <div style="margin-top:12px;">
       <button class="btn-outline-primary" id="add-headline-btn">Add Headline</button>
@@ -85,14 +206,15 @@
         </div>
       </div>
       <div class="font-sizes-grid" id="font-sizes-headline"></div>
-      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-        <button class="btn btn-secondary add-custom-btn" id="add-size-headline">Add custom size</button>
+      <div class="custom-size-row" style="display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-top:8px;">
+        <input type="number" min="1" placeholder="Custom size" id="custom-size-headline" />
+        <button class="add-custom-btn" id="add-size-headline">Add</button>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Multiple Subheadlines</div>
+    <div class="section-title">Subheadlines</div>
     <div id="subheadlines-container"></div>
     <div style="margin-top:12px;">
       <button class="btn-outline-primary" id="add-subheadline-btn">Add Subheadline</button>
@@ -106,14 +228,15 @@
         </div>
       </div>
       <div class="font-sizes-grid" id="font-sizes-subheadline"></div>
-      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-        <button class="btn btn-secondary add-custom-btn" id="add-size-subheadline">Add custom size</button>
+      <div class="custom-size-row" style="display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-top:8px;">
+        <input type="number" min="1" placeholder="Custom size" id="custom-size-subheadline" />
+        <button class="add-custom-btn" id="add-size-subheadline">Add</button>
       </div>
     </div>
   </div>
 
   <div class="section">
-    <div class="section-title">Multiple Disclaimers</div>
+    <div class="section-title">Disclaimers</div>
     <div id="disclaimers-container"></div>
     <div style="margin-top:12px;">
       <button class="btn-outline-primary" id="add-disclaimer-btn">Add Disclaimer</button>
@@ -127,8 +250,9 @@
         </div>
       </div>
       <div class="font-sizes-grid" id="font-sizes-disclaimer"></div>
-      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
-        <button class="btn btn-secondary add-custom-btn" id="add-size-disclaimer">Add custom size</button>
+      <div class="custom-size-row" style="display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-top:8px;">
+        <input type="number" min="1" placeholder="Custom size" id="custom-size-disclaimer" />
+        <button class="add-custom-btn" id="add-size-disclaimer">Add</button>
       </div>
     </div>
   </div>
@@ -163,19 +287,43 @@
       document.getElementById('add-headline-btn').addEventListener('click', () => appendInput('headline'));
       document.getElementById('headline-select-all').addEventListener('click', () => { selectedSizes.headline = [...availableSizes.headline]; renderSizes('headline'); });
       document.getElementById('headline-deselect-all').addEventListener('click', () => { selectedSizes.headline = []; renderSizes('headline'); });
-      document.getElementById('add-size-headline').addEventListener('click', () => addCustomSize('headline'));
+      document.getElementById('add-size-headline').addEventListener('click', () => {
+        const input = document.getElementById('custom-size-headline');
+        const n = parseInt(input.value, 10);
+        if (isNaN(n) || n <= 0) { input.value = ''; input.placeholder = 'Invalid'; return; }
+        if (!availableSizes.headline.includes(n)) availableSizes.headline.push(n);
+        if (!selectedSizes.headline.includes(n)) selectedSizes.headline.push(n);
+        input.value = '';
+        renderSizes('headline');
+      });
 
       // SUBHEADLINES
       document.getElementById('add-subheadline-btn').addEventListener('click', () => appendInput('subheadline'));
       document.getElementById('subheadline-select-all').addEventListener('click', () => { selectedSizes.subheadline = [...availableSizes.subheadline]; renderSizes('subheadline'); });
       document.getElementById('subheadline-deselect-all').addEventListener('click', () => { selectedSizes.subheadline = []; renderSizes('subheadline'); });
-      document.getElementById('add-size-subheadline').addEventListener('click', () => addCustomSize('subheadline'));
+      document.getElementById('add-size-subheadline').addEventListener('click', () => {
+        const input = document.getElementById('custom-size-subheadline');
+        const n = parseInt(input.value, 10);
+        if (isNaN(n) || n <= 0) { input.value = ''; input.placeholder = 'Invalid'; return; }
+        if (!availableSizes.subheadline.includes(n)) availableSizes.subheadline.push(n);
+        if (!selectedSizes.subheadline.includes(n)) selectedSizes.subheadline.push(n);
+        input.value = '';
+        renderSizes('subheadline');
+      });
 
       // DISCLAIMERS
       document.getElementById('add-disclaimer-btn').addEventListener('click', () => appendInput('disclaimer'));
       document.getElementById('disclaimer-select-all').addEventListener('click', () => { selectedSizes.disclaimer = [...availableSizes.disclaimer]; renderSizes('disclaimer'); });
       document.getElementById('disclaimer-deselect-all').addEventListener('click', () => { selectedSizes.disclaimer = []; renderSizes('disclaimer'); });
-      document.getElementById('add-size-disclaimer').addEventListener('click', () => addCustomSize('disclaimer'));
+      document.getElementById('add-size-disclaimer').addEventListener('click', () => {
+        const input = document.getElementById('custom-size-disclaimer');
+        const n = parseInt(input.value, 10);
+        if (isNaN(n) || n <= 0) { input.value = ''; input.placeholder = 'Invalid'; return; }
+        if (!availableSizes.disclaimer.includes(n)) availableSizes.disclaimer.push(n);
+        if (!selectedSizes.disclaimer.includes(n)) selectedSizes.disclaimer.push(n);
+        input.value = '';
+        renderSizes('disclaimer');
+      });
 
       // Message handler
       window.onmessage = (event) => {
@@ -217,6 +365,10 @@
       const sizes = Array.from(new Set(availableSizes[type])).sort((a,b) => b - a);
       availableSizes[type] = sizes;
 
+      // Store initial sizes for each type on first run
+      if (!window._initialSizes) window._initialSizes = {};
+      if (!window._initialSizes[type]) window._initialSizes[type] = [...sizes];
+
       sizes.forEach(size => {
         const item = document.createElement('label');
         item.className = 'size-item';
@@ -238,20 +390,28 @@
 
         item.appendChild(checkbox);
         item.appendChild(span);
+
+        // Add remove button for custom sizes (not in initial set)
+        if (!window._initialSizes[type].includes(size)) {
+          const removeBtn = document.createElement('button');
+          removeBtn.type = 'button';
+          removeBtn.className = 'remove-size-btn';
+          removeBtn.title = 'Remove size';
+          removeBtn.innerHTML = '&times;';
+          removeBtn.style.marginLeft = '2px';
+          removeBtn.onclick = (e) => {
+            e.preventDefault();
+            availableSizes[type] = availableSizes[type].filter(s => s !== size);
+            selectedSizes[type] = selectedSizes[type].filter(s => s !== size);
+            renderSizes(type);
+          };
+          item.appendChild(removeBtn);
+        }
+
         container.appendChild(item);
       });
     }
-
-    function addCustomSize(type) {
-      const input = prompt('Enter custom font size (number):');
-      if (!input) return;
-      const n = parseInt(input, 10);
-      if (isNaN(n) || n <= 0) { alert('Invalid size'); return; }
-      if (!availableSizes[type].includes(n)) availableSizes[type].push(n);
-      // Ensure selected by default
-      if (!selectedSizes[type].includes(n)) selectedSizes[type].push(n);
-      renderSizes(type);
-    }
+    // addCustomSize removed: now handled inline per section
 
     function renderAll() {
       // Ensure at least one input row exists per category
