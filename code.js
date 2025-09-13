@@ -147,6 +147,28 @@ async function createVariants(data) {
         const set = figma.combineAsVariants(components, figma.currentPage);
         set.name = `${textItem} Component Set (${textType.slice(0, -1)})`;
 
+        // Add a shared TEXT property on the set and bind all variant text layers to it
+        let textPropName;
+        try {
+          textPropName = set.addComponentProperty('Text', 'TEXT', textItem);
+        } catch (e) {
+          // If property already exists, reuse existing one
+          const defs = set.componentPropertyDefinitions || {};
+          const entry = Object.entries(defs).find(([, def]) => def.type === 'TEXT');
+          textPropName = entry ? entry[0] : undefined;
+        }
+        if (textPropName) {
+          for (const variant of set.children) {
+            if (variant.type !== 'COMPONENT') continue;
+            const textNodes = variant.findAll(n => n.type === 'TEXT');
+            for (const tn of textNodes) {
+              const refs = tn.componentPropertyReferences || {};
+              refs.characters = textPropName;
+              tn.componentPropertyReferences = refs;
+            }
+          }
+        }
+
         // Enable auto layout for the set
         set.layoutMode = 'VERTICAL';
         set.primaryAxisAlignItems = 'MIN'; // Align items to the left
