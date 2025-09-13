@@ -82,7 +82,7 @@
       border-color: var(--color-primary-hover);
       color: white;
     }
-    .remove-pill { border: 1.3px solid var(--color-danger); color: var(--color-danger); background: white; border-radius: 20px; padding: 8px 12px; cursor: pointer; font-weight: 600; }
+    .remove-pill { border: 1.3px solid var(--color-danger); color: var(--color-danger); background: white; border-radius: 20px; padding: 4px 8px; cursor: pointer; font-weight: 600; }
     .remove-pill:hover {
       background: rgba(255, 227, 233, 0.975);
       color: var(--color-danger);
@@ -117,13 +117,13 @@
     }
     /* Custom size input and Add button styling */
     .custom-size-row input[type="number"] {
-      width: 120px;
-      padding: 8px 10px;
+      width: 112px;
+      padding: 8px 8px 8px 12px;
       border: 1.3px solid var(--color-border);
       border-radius: 20px;
       font-size: 13px;
       background: #fafbfc;
-      margin-right: 8px;
+      margin-right: 0px;
       outline: none;
       transition: border 0.15s;
     }
@@ -183,6 +183,25 @@
     }
     .size-item input[type="checkbox"]:hover {
       box-shadow: 0 0 0 2px var(--color-outline-hover);
+    }
+  </style>
+  <!-- Material Symbols Rounded (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
+  <style>
+    .material-symbols-rounded {
+      font-family: 'Material Symbols Rounded';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
     }
   </style>
 </head>
@@ -347,10 +366,12 @@
       input.value = value;
       input.style.flex = '1';
 
-      const remove = document.createElement('button');
-      remove.className = 'remove-pill';
-      remove.textContent = 'Remove';
-      remove.addEventListener('click', () => row.remove());
+    const remove = document.createElement('button');
+    remove.className = 'remove-pill';
+    remove.type = 'button';
+    remove.innerHTML = '<span class="material-symbols-rounded">remove</span>';
+    remove.title = 'Remove';
+    remove.addEventListener('click', () => row.remove());
 
       row.appendChild(input);
       row.appendChild(remove);
