@@ -10,7 +10,6 @@
       padding: 16px; 
       background: #f8f9fa;
     }
-    
     .section { 
       background: white; 
       border-radius: 8px; 
@@ -18,190 +17,52 @@
       margin-bottom: 16px; 
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
-    
     .section-title { 
       font-weight: 600; 
       margin-bottom: 12px; 
       color: #1a1a1a;
     }
-    
-    .text-type-buttons {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    
-    .text-type-btn {
-      flex: 1;
-      padding: 8px 12px;
-      border: 1px solid #e1e5e9;
-      background: white;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 500;
-    }
-    
-    .text-type-btn:hover { background: #f8f9fa; }
-    .text-type-btn.active { background: #1976d2; color: white; border-color: #1976d2; }
-    
-    .form-group { margin-bottom: 16px; }
-    .label { 
-      display: block; 
-      margin-bottom: 6px; 
-      font-weight: 500; 
-      color: #5f6368; 
-      font-size: 11px; 
-    }
-    
-    .textarea {
+    .form-group { margin-bottom: 12px; display:flex; gap:8px; align-items:center; }
+    .label { display: block; margin-bottom: 6px; font-weight: 500; color: #5f6368; font-size: 11px; }
+    .input { padding: 8px; border: 1px solid #e1e5e9; border-radius: 6px; font-size: 12px; font-family: inherit; }
+    .headline-input { width: 100%; }
+    .btn { padding: 10px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; font-size: 12px; margin-bottom: 8px; }
+    .btn-primary { background: #1976d2; color: white; }
+    .btn-primary:hover { background: #1565c0; }
+    .btn-secondary { background: white; color: #1976d2; border: 1px solid #1976d2; }
+    .btn-secondary:hover { background: #f8f9fa; }
+    .status { padding: 12px; border-radius: 6px; font-size: 11px; margin-bottom: 16px; display: none; }
+    .status.success { background: #e8f5e8; color: #2e7d32; border: 1px solid #c8e6c9; }
+    .status.error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+    .btn-outline-primary { width: 100%; background: white; color: #1976d2; border: 2px solid #1976d2; border-radius: 20px; padding: 12px 16px; font-weight: 600; font-size: 14px; transition: background 0.15s, color 0.15s; }
+    .btn-filled-primary {
       width: 100%;
-      min-height: 80px;
-      padding: 12px;
-      border: 1px solid #e1e5e9;
-      border-radius: 6px;
-      font-size: 12px;
-      font-family: inherit;
-      resize: vertical;
-    }
-    
-    .textarea:focus {
-      outline: none;
-      border-color: #1976d2;
-      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
-    }
-    
-    .language-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 12px;
-    }
-    
-    .language-tab {
-      padding: 6px 12px;
-      border: 1px solid #e1e5e9;
-      background: white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 10px;
-      font-weight: 500;
-    }
-    
-    .language-tab:hover { background: #f8f9fa; }
-    .language-tab.active { background: #1976d2; color: white; border-color: #1976d2; }
-    
-    .add-language {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    
-    .select, .input {
-      padding: 8px;
-      border: 1px solid #e1e5e9;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-    
-    .select { flex: 1; }
-    
-    .font-sizes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    
-    .font-size-input {
-      width: 60px;
-      padding: 6px;
-      text-align: center;
-      border: 1px solid #e1e5e9;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-    
-    .preset-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-bottom: 12px;
-    }
-    
-    .preset-btn {
-      padding: 4px 8px;
-      border: 1px solid #e1e5e9;
-      background: white;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 10px;
-    }
-    
-    .preset-btn:hover { background: #f8f9fa; }
-    .preset-btn.active { background: #1976d2; color: white; border-color: #1976d2; }
-    
-    .btn {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: 12px;
-      margin-bottom: 8px;
-    }
-    
-    .btn-primary {
       background: #1976d2;
       color: white;
+      border: 2px solid #1976d2;
+      border-radius: 20px;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.15s, color 0.15s;
     }
-    
-    .btn-primary:hover { background: #1565c0; }
-    
-    .btn-secondary {
-      background: white;
-      color: #1976d2;
-      border: 1px solid #1976d2;
+    .btn-filled-primary:hover {
+      background: #1565c0;
+      border-color: #1565c0;
     }
-    
-    .btn-secondary:hover { background: #f8f9fa; }
-    
-    .status {
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      margin-bottom: 16px;
-      display: none;
-    }
-    
-    .status.success {
-      background: #e8f5e8;
-      color: #2e7d32;
-      border: 1px solid #c8e6c9;
-    }
-    
-    .status.error {
-      background: #ffebee;
-      color: #c62828;
-      border: 1px solid #ffcdd2;
-    }
-
+    .remove-pill { border: 1px solid #ff5252; color: #ff5252; background: white; border-radius: 20px; padding: 8px 12px; cursor: pointer; font-weight: 600; }
+  .font-sizes-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; align-items: center; }
+  .size-item { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border: 1px solid #e1e5e9; background: white; border-radius: 6px; justify-content: center; font-size: 13px; min-width: 56px; box-sizing: border-box; }
+  .size-item input { width: 16px; height: 16px; }
+  .size-item span { margin-left: 6px; }
+  .size-item input { width: 16px; height: 16px; }
+  .size-item span { margin-left: 4px; }
+    .font-actions { margin-left: auto; font-size: 11px; color: #5f6368; display:flex; gap:8px; align-items:center; }
+    .font-actions a { cursor:pointer; color:#1976d2; text-decoration:none; }
+    .add-custom-btn { float: right; }
     /* Adjust textarea to single-line input */
-    #content-input {
-      height: auto;
-      min-height: unset;
-      padding: 8px;
-    }
-
-    .headline-input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #e1e5e9;
-      border-radius: 6px;
-      font-size: 12px;
-      font-family: inherit;
-    }
+    #content-input { height: auto; min-height: unset; padding: 8px; }
+    .headline-input { width: 100%; padding: 8px; border: 1px solid #e1e5e9; border-radius: 6px; font-size: 12px; font-family: inherit; }
   </style>
 </head>
 <body>
@@ -211,235 +72,196 @@
 
   <div class="section">
     <div class="section-title">Multiple Headlines</div>
-    <div id="headlines-container">
-      <div class="form-group">
-        <input type="text" class="input headline-input" placeholder="Enter a headline..." />
-        <button class="btn btn-secondary remove-btn">Remove</button>
-      </div>
+    <div id="headlines-container"></div>
+    <div style="margin-top:12px;">
+      <button class="btn-outline-primary" id="add-headline-btn">Add Headline</button>
     </div>
-    <button class="btn btn-secondary" id="add-headline-btn">+ Add Headline</button>
-
-    <div class="form-group" style="margin-top:12px;">
-      <div class="label">Headline Font Sizes</div>
-      <div class="preset-buttons" id="preset-buttons-headline">
-        <button class="preset-btn" data-target="headline" data-sizes="128,120,104,96,80,72">Large Banners</button>
-        <button class="preset-btn" data-target="headline" data-sizes="64,56,48,36,24">Medium Banners</button>
-        <button class="preset-btn" data-target="headline" data-sizes="20,16,14">Small Banners</button>
-        <button class="preset-btn" data-target="headline" data-sizes="128,120,104,96,80,72,64,56,48,36,24,20,16,14">All Sizes</button>
+    <div style="margin-top:12px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+        <div class="label">Font Sizes</div>
+        <div class="font-actions">
+          <a id="headline-select-all">Select all</a>
+          <a id="headline-deselect-all">Deselect all</a>
+        </div>
       </div>
-      <div class="font-sizes" id="font-sizes-headline"></div>
-      <button class="btn btn-secondary" id="add-size-headline">+ Add Size</button>
+      <div class="font-sizes-grid" id="font-sizes-headline"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+        <button class="btn btn-secondary add-custom-btn" id="add-size-headline">Add custom size</button>
+      </div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">Multiple Subheadlines</div>
-    <div id="subheadlines-container">
-      <div class="form-group">
-        <input type="text" class="input subheadline-input" placeholder="Enter a subheadline..." />
-        <button class="btn btn-secondary remove-btn">Remove</button>
-      </div>
+    <div id="subheadlines-container"></div>
+    <div style="margin-top:12px;">
+      <button class="btn-outline-primary" id="add-subheadline-btn">Add Subheadline</button>
     </div>
-    <button class="btn btn-secondary" id="add-subheadline-btn">+ Add Subheadline</button>
-
-    <div class="form-group" style="margin-top:12px;">
-      <div class="label">Subheadline Font Sizes</div>
-      <div class="preset-buttons" id="preset-buttons-subheadline">
-        <button class="preset-btn" data-target="subheadline" data-sizes="48,36,32,28,24">Common</button>
-        <button class="preset-btn" data-target="subheadline" data-sizes="24,20,18,16,14">Compact</button>
-        <button class="preset-btn" data-target="subheadline" data-sizes="48,36,32,28,24,20,18,16,14">All Sizes</button>
+    <div style="margin-top:12px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+        <div class="label">Font Sizes</div>
+        <div class="font-actions">
+          <a id="subheadline-select-all">Select all</a>
+          <a id="subheadline-deselect-all">Deselect all</a>
+        </div>
       </div>
-      <div class="font-sizes" id="font-sizes-subheadline"></div>
-      <button class="btn btn-secondary" id="add-size-subheadline">+ Add Size</button>
+      <div class="font-sizes-grid" id="font-sizes-subheadline"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+        <button class="btn btn-secondary add-custom-btn" id="add-size-subheadline">Add custom size</button>
+      </div>
     </div>
   </div>
 
   <div class="section">
     <div class="section-title">Multiple Disclaimers</div>
-    <div id="disclaimers-container">
-      <div class="form-group">
-        <input type="text" class="input disclaimer-input" placeholder="Enter a disclaimer..." />
-        <button class="btn btn-secondary remove-btn">Remove</button>
-      </div>
+    <div id="disclaimers-container"></div>
+    <div style="margin-top:12px;">
+      <button class="btn-outline-primary" id="add-disclaimer-btn">Add Disclaimer</button>
     </div>
-    <button class="btn btn-secondary" id="add-disclaimer-btn">+ Add Disclaimer</button>
-
-    <div class="form-group" style="margin-top:12px;">
-      <div class="label">Disclaimer Font Sizes</div>
-      <div class="preset-buttons" id="preset-buttons-disclaimer">
-        <button class="preset-btn" data-target="disclaimer" data-sizes="16,14,12,10">Common</button>
-        <button class="preset-btn" data-target="disclaimer" data-sizes="14,12,10,9,8">Extra Compact</button>
-        <button class="preset-btn" data-target="disclaimer" data-sizes="20,16,14,12,10,9,8">All Sizes</button>
+    <div style="margin-top:12px;">
+      <div style="display:flex; align-items:center; gap:16px; margin-bottom:8px;">
+        <div class="label">Font Sizes</div>
+        <div class="font-actions">
+          <a id="disclaimer-select-all">Select all</a>
+          <a id="disclaimer-deselect-all">Deselect all</a>
+        </div>
       </div>
-      <div class="font-sizes" id="font-sizes-disclaimer"></div>
-      <button class="btn btn-secondary" id="add-size-disclaimer">+ Add Size</button>
+      <div class="font-sizes-grid" id="font-sizes-disclaimer"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:8px;">
+        <button class="btn btn-secondary add-custom-btn" id="add-size-disclaimer">Add custom size</button>
+      </div>
     </div>
   </div>
 
   <!-- Unified font sizes section removed; each category has its own controls -->
 
   <div class="section">
-    <button class="btn btn-primary" id="create-variants">Create as Variants</button>
+    <button class="btn-filled-primary" id="create-variants">Create as Variants</button>
   </div>
 
   <script>
-    // Per-category font size sets
-    const fontSizes = {
-      headline: [48],
-      subheadline: [24],
-      disclaimer: [12]
+    // Per-category font size sets (available sizes) and selection state
+    const availableSizes = {
+      headline: [128,120,104,96,80,72,64,56,48,36,32,24,20,16,12],
+      subheadline: [64,56,48,36,32,28,24,20,18,16,14],
+      disclaimer: [24,20,16,14,12,10]
+    };
+    const selectedSizes = {
+      headline: [128,120,104,96,80],
+      subheadline: [64,56,48,36,32,28,24],
+      disclaimer: [24,20,16,14,12]
     };
 
     // Initialize
     setupEventListeners();
-    updateUI();
+    renderAll();
 
     function setupEventListeners() {
-      // Font size presets per category
-      document.querySelectorAll('.preset-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = btn.dataset.target;
-          // Mark active inside its own preset group
-          btn.parentElement.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          fontSizes[target] = btn.dataset.sizes.split(',').map(s => parseInt(s));
-          updateFontSizesUI(target);
-        });
-      });
-
-      // Add font size per category
-      document.getElementById('add-size-headline').addEventListener('click', () => {
-        fontSizes.headline.push(16);
-        updateFontSizesUI('headline');
-      });
-      document.getElementById('add-size-subheadline').addEventListener('click', () => {
-        fontSizes.subheadline.push(16);
-        updateFontSizesUI('subheadline');
-      });
-      document.getElementById('add-size-disclaimer').addEventListener('click', () => {
-        fontSizes.disclaimer.push(12);
-        updateFontSizesUI('disclaimer');
-      });
-
-      // Action buttons
       document.getElementById('create-variants').addEventListener('click', createVariants);
-  // Removed other action buttons
 
-      // Add functionality for multiple headlines
-      const headlinesContainer = document.getElementById('headlines-container');
-      const addHeadlineBtn = document.getElementById('add-headline-btn');
+      // HEADLINES
+      document.getElementById('add-headline-btn').addEventListener('click', () => appendInput('headline'));
+      document.getElementById('headline-select-all').addEventListener('click', () => { selectedSizes.headline = [...availableSizes.headline]; renderSizes('headline'); });
+      document.getElementById('headline-deselect-all').addEventListener('click', () => { selectedSizes.headline = []; renderSizes('headline'); });
+      document.getElementById('add-size-headline').addEventListener('click', () => addCustomSize('headline'));
 
-      addHeadlineBtn.addEventListener('click', () => {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group';
+      // SUBHEADLINES
+      document.getElementById('add-subheadline-btn').addEventListener('click', () => appendInput('subheadline'));
+      document.getElementById('subheadline-select-all').addEventListener('click', () => { selectedSizes.subheadline = [...availableSizes.subheadline]; renderSizes('subheadline'); });
+      document.getElementById('subheadline-deselect-all').addEventListener('click', () => { selectedSizes.subheadline = []; renderSizes('subheadline'); });
+      document.getElementById('add-size-subheadline').addEventListener('click', () => addCustomSize('subheadline'));
 
-        const headlineInput = document.createElement('input');
-        headlineInput.type = 'text';
-        headlineInput.className = 'input headline-input';
-        headlineInput.placeholder = 'Enter a headline...';
+      // DISCLAIMERS
+      document.getElementById('add-disclaimer-btn').addEventListener('click', () => appendInput('disclaimer'));
+      document.getElementById('disclaimer-select-all').addEventListener('click', () => { selectedSizes.disclaimer = [...availableSizes.disclaimer]; renderSizes('disclaimer'); });
+      document.getElementById('disclaimer-deselect-all').addEventListener('click', () => { selectedSizes.disclaimer = []; renderSizes('disclaimer'); });
+      document.getElementById('add-size-disclaimer').addEventListener('click', () => addCustomSize('disclaimer'));
 
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-secondary remove-btn';
-        removeBtn.textContent = 'Remove';
-        removeBtn.addEventListener('click', () => formGroup.remove());
-
-        formGroup.appendChild(headlineInput);
-        formGroup.appendChild(removeBtn);
-        headlinesContainer.appendChild(formGroup);
-      });
-
-      // Add functionality for multiple subheadlines
-      const subheadlinesContainer = document.getElementById('subheadlines-container');
-      const addSubheadlineBtn = document.getElementById('add-subheadline-btn');
-
-      addSubheadlineBtn.addEventListener('click', () => {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group';
-
-        const subheadlineInput = document.createElement('input');
-        subheadlineInput.type = 'text';
-        subheadlineInput.className = 'input subheadline-input';
-        subheadlineInput.placeholder = 'Enter a subheadline...';
-
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-secondary remove-btn';
-        removeBtn.textContent = 'Remove';
-        removeBtn.addEventListener('click', () => formGroup.remove());
-
-        formGroup.appendChild(subheadlineInput);
-        formGroup.appendChild(removeBtn);
-        subheadlinesContainer.appendChild(formGroup);
-      });
-
-      // Add functionality for multiple disclaimers
-      const disclaimersContainer = document.getElementById('disclaimers-container');
-      const addDisclaimerBtn = document.getElementById('add-disclaimer-btn');
-
-      addDisclaimerBtn.addEventListener('click', () => {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group';
-
-        const disclaimerInput = document.createElement('input');
-        disclaimerInput.type = 'text';
-        disclaimerInput.className = 'input disclaimer-input';
-        disclaimerInput.placeholder = 'Enter a disclaimer...';
-
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'btn btn-secondary remove-btn';
-        removeBtn.textContent = 'Remove';
-        removeBtn.addEventListener('click', () => formGroup.remove());
-
-        formGroup.appendChild(disclaimerInput);
-        formGroup.appendChild(removeBtn);
-        disclaimersContainer.appendChild(formGroup);
-      });
-
-      // Listen for plugin messages
+      // Message handler
       window.onmessage = (event) => {
         const msg = event.data.pluginMessage;
         if (msg) handlePluginMessage(msg);
       };
     }
-    function updateFontSizesUI(type) {
-      const sizes = fontSizes[type];
+
+    // Append an input row for a given type
+    function appendInput(type, value = '') {
+      const container = document.getElementById(`${type}s-container`);
+      const row = document.createElement('div');
+      row.className = 'form-group';
+      row.style.display = 'flex';
+      row.style.alignItems = 'center';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = `input ${type}-input`;
+      input.placeholder = type === 'headline' ? 'Enter a headline...' : (type === 'subheadline' ? 'Enter a subheadline...' : 'Enter a disclaimer...');
+      input.value = value;
+      input.style.flex = '1';
+
+      const remove = document.createElement('button');
+      remove.className = 'remove-pill';
+      remove.textContent = 'Remove';
+      remove.addEventListener('click', () => row.remove());
+
+      row.appendChild(input);
+      row.appendChild(remove);
+      container.appendChild(row);
+    }
+
+    // Render size checkboxes for a type
+    function renderSizes(type) {
       const container = document.getElementById(`font-sizes-${type}`);
       container.innerHTML = '';
+      // Ensure unique and sorted desc
+      const sizes = Array.from(new Set(availableSizes[type])).sort((a,b) => b - a);
+      availableSizes[type] = sizes;
 
-      sizes.forEach((size, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.style.display = 'flex';
-        wrapper.style.alignItems = 'center';
-        wrapper.style.gap = '4px';
+      sizes.forEach(size => {
+        const item = document.createElement('label');
+        item.className = 'size-item';
 
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.className = 'font-size-input';
-        input.value = size;
-        input.min = '8';
-        input.max = '200';
-        input.addEventListener('input', () => {
-          fontSizes[type][index] = parseInt(input.value) || size;
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = selectedSizes[type].includes(size);
+        checkbox.addEventListener('change', () => {
+          if (checkbox.checked) {
+            if (!selectedSizes[type].includes(size)) selectedSizes[type].push(size);
+          } else {
+            const idx = selectedSizes[type].indexOf(size);
+            if (idx !== -1) selectedSizes[type].splice(idx,1);
+          }
         });
 
-        wrapper.appendChild(input);
+        const span = document.createElement('span');
+        span.textContent = `${size}`;
 
-        if (sizes.length > 1) {
-          const removeBtn = document.createElement('button');
-          removeBtn.textContent = '×';
-          removeBtn.style.cssText = 'width: 20px; height: 20px; padding: 0; border: 1px solid #e1e5e9; background: white; border-radius: 3px; cursor: pointer; font-size: 12px;';
-          removeBtn.addEventListener('click', () => {
-            fontSizes[type].splice(index, 1);
-            updateFontSizesUI(type);
-          });
-          wrapper.appendChild(removeBtn);
-        }
-
-        container.appendChild(wrapper);
+        item.appendChild(checkbox);
+        item.appendChild(span);
+        container.appendChild(item);
       });
     }
 
-    function updateUI() {
-      ['headline','subheadline','disclaimer'].forEach(updateFontSizesUI);
+    function addCustomSize(type) {
+      const input = prompt('Enter custom font size (number):');
+      if (!input) return;
+      const n = parseInt(input, 10);
+      if (isNaN(n) || n <= 0) { alert('Invalid size'); return; }
+      if (!availableSizes[type].includes(n)) availableSizes[type].push(n);
+      // Ensure selected by default
+      if (!selectedSizes[type].includes(n)) selectedSizes[type].push(n);
+      renderSizes(type);
+    }
+
+    function renderAll() {
+      // Ensure at least one input row exists per category
+      if (document.querySelectorAll('.headline-input').length === 0) appendInput('headline');
+      if (document.querySelectorAll('.subheadline-input').length === 0) appendInput('subheadline');
+      if (document.querySelectorAll('.disclaimer-input').length === 0) appendInput('disclaimer');
+
+      renderSizes('headline');
+      renderSizes('subheadline');
+      renderSizes('disclaimer');
     }
 
     function showStatus(message, type) {
@@ -453,15 +275,15 @@
     function createVariants() {
       const headlines = Array.from(document.querySelectorAll('.headline-input'))
         .map(input => input.value.trim())
-        .filter(item => item.length > 0); // Get all non-empty headlines
+        .filter(item => item.length > 0);
 
       const subheadlines = Array.from(document.querySelectorAll('.subheadline-input'))
         .map(input => input.value.trim())
-        .filter(item => item.length > 0); // Get all non-empty subheadlines
+        .filter(item => item.length > 0);
 
       const disclaimers = Array.from(document.querySelectorAll('.disclaimer-input'))
         .map(input => input.value.trim())
-        .filter(item => item.length > 0); // Get all non-empty disclaimers
+        .filter(item => item.length > 0);
 
       if (headlines.length === 0 && subheadlines.length === 0 && disclaimers.length === 0) {
         showStatus('Please add at least one text item.', 'error');
@@ -473,16 +295,14 @@
         subheadlines,
         disclaimers,
         fontSizes: {
-          headline: [...fontSizes.headline],
-          subheadline: [...fontSizes.subheadline],
-          disclaimer: [...fontSizes.disclaimer]
+          headline: selectedSizes.headline.slice().sort((a,b)=>b-a),
+          subheadline: selectedSizes.subheadline.slice().sort((a,b)=>b-a),
+          disclaimer: selectedSizes.disclaimer.slice().sort((a,b)=>b-a)
         }
       };
 
       parent.postMessage({ pluginMessage: { type: 'create-variants', data } }, '*');
     }
-
-    // combineVariants/createComponents/updateExisting removed per new workflow
 
     function handlePluginMessage(msg) {
       switch (msg.type) {
