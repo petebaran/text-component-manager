@@ -1,8 +1,10 @@
 {
   "name": "Capital Text Kit",
-  "id": "text-component-manager-simple",
+  "id": "1549329211419633866",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
-  "editorType": ["figma"]
+  "editorType": ["figma"],
+  "networkAccess": { "allowedDomains": ["none"] },
+  "documentAccess": "dynamic-page"
 }
